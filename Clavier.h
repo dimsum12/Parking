@@ -9,8 +9,10 @@
 #define CLAVIER_H_
 
 
+
 void Clavier();
 void Commande(char c, unsigned int val);
+void Destruction();
 
 
 #endif /* CLAVIER_H_ */
