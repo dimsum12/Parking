@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
 
 #include "Entree.h"
 #include "SharedPipe.h"
@@ -21,6 +22,13 @@ void Entree()
 {   
 
     //Initialisation
+
+    //Creation du Handler de Destruction_Entree
+    struct sigaction action_siguser2;
+    action_siguser2.sa_handler = handler_destruction;
+    action_siguser2.sa_flags = 0;
+    sigaction(SIGUSR2, &action_siguser2, NULL);
+
     pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
     char temp[T_BUFF_PIPE * 2];
 
@@ -38,6 +46,11 @@ void Destruction_Entree()
 {
     close(pipeArrivee);
     exit(0);
+}
+
+void handler_destruction() {
+	//SIGUSR 2 voiturier
+	Destruction_Entree();
 }
 
 
