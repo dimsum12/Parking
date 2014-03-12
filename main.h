@@ -10,5 +10,7 @@
 
 
 int main();
+void Initialisation ();
+void Destruction();
 
 #endif /* MAIN_H_ */
