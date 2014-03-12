@@ -44,22 +44,21 @@ int main() {
 	}
         else
 	{
-      // Creation du handler de destruction
-      struct sigaction action_sigusr2;
-      action_sigusr2.sa_handler = handler_Destruction();
-      action_sigusr2.sa_flags = 0;
-      sigaction(SIGUSR2, &action_sigusr2, NULL);
+		// Creation du handler de destruction
+		struct sigaction action_sigusr2;
+		action_sigusr2.sa_handler = handler_Destruction();
+		action_sigusr2.sa_flags = 0;
+		sigaction(SIGUSR2, &action_sigusr2, NULL);
 
-
-        Afficher(MESSAGE, "Test");
+		Afficher(MESSAGE, "Test");
 		waitpid(noClavier, NULL, 0);
 		TerminerApplication();
 		exit(0);
 
+
 	}
     return 0;
 }
-
 void handler_Destruction(){
 	kill(noEntree,SIGUSR2);
 	Destruction_main();
@@ -79,7 +78,7 @@ void Initialisation (){
 	// ------------------------ nbPlaces ----------------------- //
 
 	Id_mem_NbPlaces = shmget(IPC_PRIVATE,sizeof(int),IPC_CREAT | DROITS);
-	p_nbPlaces = (int*) shmat(Id_mem_NbPlaces,NUCREATIONLL,0);
+	p_nbPlaces = (int*) shmat(Id_mem_NbPlaces,NULL,0);
 
 	// ------------------------ Requetes ----------------------- //
 

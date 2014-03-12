@@ -10,33 +10,47 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
 
 #include "Entree.h"
 #include "SharedPipe.h"
 #include "Outils.h"
 
 static int pipeArrivee;
-static int typeBarriere;
+static char msgPipe[T_BUFF_PIPE];
 void Entree()
 {   
 
-    typeBarriere = 0;
     //Initialisation
-    pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
 
-    //for(;;)
-    
-    	read(pipeArrivee, &typeBarriere, sizeof(typeBarriere));
-    	char temp[64];
-    	sprintf(temp, "%d", typeBarriere);
-    	Afficher(MESSAGE, "test");
-    
+    //Creation du Handler de Destruction_Entree
+    struct sigaction action_siguser2;
+    action_siguser2.sa_handler = handler_destruction;
+    action_siguser2.sa_flags = 0;
+    sigaction(SIGUSR2, &action_siguser2, NULL);
+
+    pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
+    char temp[T_BUFF_PIPE * 2];
+
+    for(;;)
+    {
+    	Afficher(MESSAGE, "test avant");
+    	read(pipeArrivee, msgPipe, T_BUFF_PIPE);
+    	sprintf(temp, "test apres : %s", msgPipe);
+    	Afficher(MESSAGE, temp);
+
+    }
 }
 
 void Destruction_Entree()
 {
     close(pipeArrivee);
     exit(0);
+}
+
+void handler_destruction() {
+	//SIGUSR 2 voiturier
+	Destruction_Entree();
 }
 
 
