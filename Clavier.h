@@ -12,6 +12,7 @@
 
 void Clavier();
 void Commande(char c, unsigned int val);
+void Arrivee(int Type);
 void Destruction();
 
 

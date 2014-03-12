@@ -11,6 +11,6 @@
 
 int main();
 void Initialisation ();
-void Destruction();
+void Destruction_main();
 
 #endif /* MAIN_H_ */

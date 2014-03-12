@@ -7,6 +7,7 @@
 
 #include "Clavier.h"
 #include "Menu.h"
+#include "Outils.h"
 #include "SharedPipe.h"
         
 static int sortie_voiture;
@@ -14,15 +15,19 @@ static int arrivee_voiture;
         
 
 void Clavier() {
+
+    	
         // Initialisation
-        arrivee_voiture = mkfifo(pathPipeArrivee , S_IWUSR);
-        sortie_voiture = mkfifo(pathPipeSortie , S_IWUSR);
+        //pathPipeArrivee = "./arrivee_voiture"; 
+        //pathPipeSortie  = "./sortie_voiture"; 
+        mkfifo(pathPipeArrivee , S_IWUSR);
+        mkfifo(pathPipeSortie , S_IWUSR);
         
-        open(pathPipeArrivee, O_NONBLOCK | O_WRONLY);
-        open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
+        arrivee_voiture = open(pathPipeArrivee, O_NONBLOCK | O_WRONLY);
+        sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
 	for(;;)
 	{
-                // Moteur
+        // Moteur
 		Menu();
 	}
         
@@ -33,13 +38,22 @@ void Commande(char code, unsigned int valeur)
 {
 	switch (code){
 		case 'Q' :
-                    Destruction();
-                    exit(0);
+            Destruction();
+            exit(0);
 		    break;
+		case 'P' :
+			Arrivee(PROF);
+			break;
 	}
 }
 
-void Destruction() 
+void Arrivee(int type)
+{
+    Afficher(MESSAGE, "coucou");
+    write(arrivee_voiture, &type, sizeof(type));
+}
+
+void Destruction()
 {
     unlink(pathPipeArrivee);
     unlink(pathPipeSortie);

@@ -9,8 +9,8 @@
 #define SHAREDPIPE_H_
 
 
-const char *pathPipeArrivee = "./arrivee_voiture";
-const char *pathPipeSortie  = "./sortie_voiture";
+const char * const pathPipeArrivee = "./arrivee_voiture";
+const char * const pathPipeSortie = "./sortie_voiture";
 
 
 
