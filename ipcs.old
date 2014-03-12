@@ -1,0 +1,24 @@
+
+------ Segment de mémoire partagée --------
+clef       shmid      propriétaire perms      octets     nattch     états      
+0x00000774 2129920    qdupont    666        16384      0                       
+0x00000000 7274497    qdupont    600        393216     2          dest         
+0x00000000 1245186    gdm        777        5760000    0                       
+0x00000000 3866627    qdupont    600        4194304    2          dest         
+0x00000000 2588676    qdupont    600        1048576    2          dest         
+0x00000000 10584069   qdupont    600        4194304    2          dest         
+0x00000000 2424838    qdupont    600        393216     2          dest         
+0x00000000 10256391   qdupont    600        393216     2          dest         
+0x00000000 2555912    qdupont    600        2097152    2          dest         
+0x00000000 3964937    qdupont    600        524288     2          dest         
+0x00000000 4325386    qdupont    600        393216     2          dest         
+0x00000000 5963787    qdupont    600        16777216   2          dest         
+0x00000000 4456460    qdupont    600        393216     2          dest         
+0x00000000 10485774   qdupont    600        33554432   2          dest         
+
+------ Tableaux de sémaphores --------
+clef       semid      propriétaire perms      nsems     
+
+------ Files de messages --------
+clef       msqid      propriétaire perms      octets utilisés messages    
+
