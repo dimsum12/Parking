@@ -4,12 +4,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 #include "Clavier.h"
 #include "Menu.h"
 #include "Outils.h"
 #include "SharedPipe.h"
-        
+ 
 static int sortie_voiture;
 static int arrivee_voiture;
         
@@ -42,15 +43,16 @@ void Commande(char code, unsigned int valeur)
             exit(0);
 		    break;
 		case 'P' :
-			Arrivee(PROF);
+			Arrivee(AUTRE, valeur);
 			break;
 	}
 }
 
-void Arrivee(int type)
+void Arrivee(int type, int valeur)
 {
-    Afficher(MESSAGE, "coucou");
-    write(arrivee_voiture, &type, sizeof(type));
+    char buff[T_BUFF_PIPE];
+    sprintf(buff,"%d,%d",type,valeur);
+    write(arrivee_voiture, buff, T_BUFF_PIPE);
 }
 
 void Destruction() 

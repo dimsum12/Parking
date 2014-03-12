@@ -16,21 +16,22 @@
 #include "Outils.h"
 
 static int pipeArrivee;
-static int typeBarriere;
+static char msgPipe[T_BUFF_PIPE];
 void Entree()
 {   
 
-    typeBarriere = 0;
     //Initialisation
     pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
+    char temp[T_BUFF_PIPE * 2];
 
-    //for(;;)
-    
-    	read(pipeArrivee, &typeBarriere, sizeof(typeBarriere));
-    	char temp[64];
-    	sprintf(temp, "%d", typeBarriere);
-    	Afficher(MESSAGE, "test");
-    
+    for(;;)
+    {
+    	Afficher(MESSAGE, "test avant");
+    	read(pipeArrivee, msgPipe, T_BUFF_PIPE);
+    	sprintf(temp, "test apres : %s", msgPipe);
+    	Afficher(MESSAGE, temp);
+
+    }
 }
 
 void Destruction_Entree()

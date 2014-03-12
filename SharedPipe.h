@@ -11,6 +11,7 @@
 
 const char * const pathPipeArrivee = "./arrivee_voiture";
 const char * const pathPipeSortie = "./sortie_voiture";
+const int T_BUFF_PIPE = 16;
 
 
 

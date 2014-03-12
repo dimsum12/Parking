@@ -22,7 +22,6 @@ int main() {
 	}
         else
 	{
-                Afficher(MESSAGE, "Test");
 		waitpid(noClavier, NULL, 0);
 		TerminerApplication();
 		exit(0);
