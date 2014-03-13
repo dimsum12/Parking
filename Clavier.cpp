@@ -60,6 +60,9 @@ void Commande(char code, unsigned int valeur)
 		case 'A' :
 			Arrivee(AUTRE, valeur);
 			break;
+		case 'S' :
+			write(sortie_voiture, &valeur, sizeof(valeur));
+			break;
 	}
 }
 
