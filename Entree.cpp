@@ -41,7 +41,6 @@ void Entree()
     	//char * tk; // Part of the msgPipe after strtokv
 		//tk = strtok(msgPipe, ",");
 		GarerVoiture(PROF_BLAISE_PASCAL);
-
     }
 }
 
