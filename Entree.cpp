@@ -28,21 +28,17 @@ void Entree(TypeBarriere barriere)
     action_siguser2.sa_handler = handler_destruction;
     action_siguser2.sa_flags = 0;
     sigaction(SIGUSR2, &action_siguser2, NULL);
-    //Afficher(MESSAGE, "DEBUG 2");
 
     pipeArriveePBP = open(pathPipeArriveePBP,  O_RDONLY); //Afficher(MESSAGE, "DEBUG 3");
     pipeArriveeABP = open(pathPipeArriveeABP,  O_RDONLY); Afficher(MESSAGE, "DEBUG 7");
     pipeArriveeGB  = open(pathPipeArriveeGB,   O_RDONLY); Afficher(MESSAGE, "DEBUG 8");
 
     char temp[T_BUFF_PIPE * 2];
-    int i = 0;
 
     for(;;)
     {
 
-    	Effacer(MESSAGE);
-    	sprintf(temp, "test AVANT: %d", i);
-		Afficher(MESSAGE, temp);
+
     	if(barriere == PROF_BLAISE_PASCAL)
     	{
     		Afficher(MESSAGE, "PBP");
