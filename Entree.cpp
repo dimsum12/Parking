@@ -11,10 +11,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/shm.h>
 
 #include "Entree.h"
 #include "SharedPipe.h"
 #include "Outils.h"
+#include "main.h"
+#include "Semaphore.h"
 
 static int pipeArrivee;
 static char msgPipe[T_BUFF_PIPE];
@@ -28,6 +32,8 @@ void Entree()
     action_siguser2.sa_handler = handler_destruction;
     action_siguser2.sa_flags = 0;
     sigaction(SIGUSR2, &action_siguser2, NULL);
+
+    // 	  TODO : faire les attachements
 
     pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
     char temp[T_BUFF_PIPE * 2];
@@ -43,12 +49,22 @@ void Entree()
 		GarerVoiture(PROF_BLAISE_PASCAL);
 
     }
+
 }
 
 void Destruction_Entree()
 {
     close(pipeArrivee);
+
+	// Detachements
+	shmdt(p_EtatParking);
+	shmdt(p_Requetes);
+	shmdt(p_nbPlaces);
+
+    // Detruire sem place_libre
+
     exit(0);
+
 }
 
 void handler_destruction(int noSignal) {
