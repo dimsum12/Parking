@@ -12,6 +12,6 @@
 int main();
 void Initialisation ();
 void Destruction_main();
-void handler_Destruction(int noSignal);
+void handler_Destruction();
 
 #endif /* MAIN_H_ */

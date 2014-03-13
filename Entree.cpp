@@ -38,6 +38,7 @@ void Entree()
     	read(pipeArrivee, msgPipe, T_BUFF_PIPE);
     	sprintf(temp, "test apres : %s", msgPipe);
     	Afficher(MESSAGE, temp);
+	
 
     }
 }

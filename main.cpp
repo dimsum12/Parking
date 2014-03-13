@@ -27,15 +27,15 @@ static int * p_nbPlaces;
 static requetes * p_Requetes;
 
 static int Id_sem_Requetes;
-static pid_t noClavier, noEntree;
+static pid_t noClavier, noEntree, noHeure;
 
 
 
 int main() {
 	InitialiserApplication(XTERM);
 	//sleep(10);
-
-	//ActiverHeure();
+	Initialisation();
+	noHeure = ActiverHeure();
 
 	if ( ( noClavier = fork()) == 0 )
 	{
@@ -65,7 +65,8 @@ int main() {
 }
 void handler_Destruction(){
 	kill(noEntree,SIGUSR2);
-	//Destruction_main();
+	kill(noHeure,SIGUSR2);
+	Destruction_main();
 }
 
 void Initialisation (){
@@ -118,5 +119,6 @@ void Destruction_main (){
 	//shmdt(p_Requetes);// Detachement à faire dans la tâche
 	shmctl(Id_mem_Requetes,IPC_RMID,0);
 
-	// ------------------- Fin Memoire Partagee -----------------//
+	// ------------------------ Semaphore -----------------------//
+	detruire_sem(Id_sem_Requetes);
 }
