@@ -13,8 +13,8 @@ all: $(EXEC)
 $(EXEC): $(OBJ)
 	$(CCP) -o $@ $^ $(CFLAGS) $(LIBPATH) $(LIBS)
 
-main.o: main.cpp
-	$(CCP) -o $@ -c $< $(CFLAGS) $(INCPATH)
+#main.o: main.cpp
+#	$(CCP) -o $@ -c $< $(CFLAGS) $(INCPATH)
 	
 %.o: %.cpp  %.h
 	$(CCP) -o $@ -c $< $(CFLAGS) $(INCPATH)

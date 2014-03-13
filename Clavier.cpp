@@ -36,7 +36,7 @@ void Clavier() {
         arrivee_voitureABP = open(pathPipeArriveeABP,   O_WRONLY);
         arrivee_voitureGB =  open(pathPipeArriveeGB,    O_WRONLY);
         //sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
-        //Afficher(MESSAGE, "DEBUG 5");
+        Afficher(MESSAGE, "DEBUG 5");
 	for(;;)
 	{
         // Moteur

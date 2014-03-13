@@ -29,20 +29,20 @@
 //---------------------------------------------------- Variables publiques
 
 // Mémoires partagées
-const int Id_mem_EtatParking;
-const int Id_mem_NbPlaces;
-const int Id_mem_Requetes;
-const etat_parking * p_EtatParking;
-const int * p_nbPlaces;
-const requetes * p_Requetes;
+int Id_mem_EtatParking;
+int Id_mem_NbPlaces;
+int Id_mem_Requetes;
+etat_parking * p_EtatParking;
+int * p_nbPlaces;
+requetes * p_Requetes;
 
 // Sémaphores
-const int Id_sem_Requetes;
-const int Id_sem_EtatParking;
-const int Id_sem_nbPlaces;
+int Id_sem_Requetes;
+int Id_sem_EtatParking;
+int Id_sem_nbPlaces;
 
 // PID
-const pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure;
+pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure;
 
 //---------------------------------------------------- Fonctions publiques
 
