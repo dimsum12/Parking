@@ -26,7 +26,6 @@
 
 int main() {
 	InitialiserApplication(XTERM);
-	//sleep(10);
 	Initialisation();
 	noHeure = ActiverHeure();
 
@@ -34,9 +33,15 @@ int main() {
 	{
 	    Clavier();
 	}
-	else if ( (noEntree = fork()) == 0)
+	else if ( (noEntreePBP = fork()) == 0)
 	{
-	    Entree();
+	    Entree(PROF_BLAISE_PASCAL);
+	} else if ( (noEntreeABP = fork()) == 0)
+	{
+	    Entree(AUTRE_BLAISE_PASCAL);
+	} else if ( (noEntreeGB = fork()) == 0)
+	{
+	    Entree(ENTREE_GASTON_BERGER);
 	}
         else
 	{
@@ -46,7 +51,6 @@ int main() {
 //		action_sigusr2.sa_flags = 0;
 //		sigaction(SIGUSR2, &action_sigusr2, NULL);
 
-		Afficher(MESSAGE, "Test");
 		waitpid(noClavier, NULL, 0);
 		handler_Destruction();
 		TerminerApplication();
@@ -56,17 +60,23 @@ int main() {
 	}
     return 0;
 }
-void handler_Destruction(){
-	kill(noEntree,SIGUSR2);
+void handler_Destruction()
+{
+	kill(noEntreeABP,SIGUSR2);
+	kill(noEntreeGB,SIGUSR2);
+	kill(noEntreePBP,SIGUSR2);
 	kill(noHeure,SIGUSR2);
 	Destruction_main();
 }
 
-void Initialisation (){
+void Initialisation ()
+{
 
 	// -------------------------- Pipes ------------------------ //
-    mkfifo(pathPipeArrivee , S_IWUSR);
-    mkfifo(pathPipeSortie , S_IWUSR);
+    mkfifo(pathPipeArriveePBP , S_IWUSR | S_IRUSR );
+    mkfifo(pathPipeArriveeABP , S_IWUSR | S_IRUSR );
+    mkfifo(pathPipeArriveeGB ,  S_IWUSR | S_IRUSR );
+    mkfifo(pathPipeSortie ,     S_IWUSR | S_IRUSR );
 
 
 	// -------------------- Memoire Partagee ------------------- //
@@ -102,8 +112,12 @@ void Initialisation (){
 
 }
 
-void Destruction_main (){
-
+void Destruction_main ()
+{
+	// ------------------------ Semaphore -----------------------//
+		detruire_sem(Id_sem_Requetes);
+		detruire_sem(Id_sem_nbPlaces);
+		detruire_sem(Id_sem_EtatParking);
 	// -------------------- Memoire Partagee ------------------- //
 	// ---------------------- Etat Parking --------------------- //
 
@@ -121,8 +135,11 @@ void Destruction_main (){
 	//shmdt(p_Requetes);// Detachement à faire dans la tâche
 	shmctl(Id_mem_Requetes,IPC_RMID,0);
 
-	// ------------------------ Semaphore -----------------------//
-	detruire_sem(Id_sem_Requetes);
-	detruire_sem(Id_sem_nbPlaces);
-	detruire_sem(Id_sem_EtatParking);
+
+
+	unlink(pathPipeSortie);
+	unlink(pathPipeArriveeGB);
+	unlink(pathPipeArriveeABP);
+	unlink(pathPipeArriveePBP);
+
 }

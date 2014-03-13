@@ -15,7 +15,7 @@
 
 void detruire_sem(int sem) {
         semctl(sem, 0, IPC_RMID, 0);
-}pid_t noClavier, noEntree;
+};
 void changer_sem(int sem, int val) {
         struct sembuf sb[1];
         sb[0].sem_num = 0;

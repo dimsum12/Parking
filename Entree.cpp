@@ -20,9 +20,9 @@
 #include "main.h"
 #include "Semaphore.h"
 
-static int pipeArrivee;
+static int pipeArriveePBP,pipeArriveeABP,pipeArriveeGB;
 static char msgPipe[T_BUFF_PIPE];
-void Entree()
+void Entree(TypeBarriere barriere)
 {   
 
     //Initialisation
@@ -33,38 +33,53 @@ void Entree()
     action_siguser2.sa_flags = 0;
     sigaction(SIGUSR2, &action_siguser2, NULL);
 
-    // 	  TODO : faire les attachements
-
-    pipeArrivee = open(pathPipeArrivee,  O_RDONLY);
+    pipeArriveePBP = open(pathPipeArriveePBP,  O_RDONLY);
+    pipeArriveeABP = open(pathPipeArriveePBP,  O_RDONLY);
+    pipeArriveeGB = open(pathPipeArriveePBP,   O_RDONLY);
     char temp[T_BUFF_PIPE * 2];
 
     for(;;)
     {
-    	Afficher(MESSAGE, "test avant");
-    	read(pipeArrivee, msgPipe, T_BUFF_PIPE);
-    	sprintf(temp, "test apres : %s", msgPipe);
-    	Afficher(MESSAGE, temp);
-    	//char * tk; // Part of the msgPipe after strtokv
-		//tk = strtok(msgPipe, ",");
-		GarerVoiture(PROF_BLAISE_PASCAL);
 
+
+
+    	if(barriere == PROF_BLAISE_PASCAL)
+    	{
+    		Afficher(MESSAGE, "PBP");
+    		read(pipeArriveePBP, msgPipe, T_BUFF_PIPE);
+    		Effacer(MESSAGE);
+    		sprintf(temp, "test ap: %s", msgPipe);
+    		Afficher(MESSAGE, temp);
+    		GarerVoiture(PROF_BLAISE_PASCAL);
+    	}
+    	else if(barriere == AUTRE_BLAISE_PASCAL)
+    	{
+    		Afficher(MESSAGE, "ABP");
+    		read(pipeArriveeABP, msgPipe, T_BUFF_PIPE);
+    		Effacer(MESSAGE);
+    		sprintf(temp, "test ap: %s", msgPipe);
+    		Afficher(MESSAGE, temp);
+    		GarerVoiture(AUTRE_BLAISE_PASCAL);
+    	}
+    	else if(barriere == ENTREE_GASTON_BERGER )
+    	{
+    		Afficher(MESSAGE, "GB");
+    		read(pipeArriveeGB, msgPipe, T_BUFF_PIPE);
+    		Effacer(MESSAGE);
+    		sprintf(temp, "test ap: %s", msgPipe);
+    		Afficher(MESSAGE, temp);
+    		GarerVoiture(ENTREE_GASTON_BERGER);
+
+    	}
     }
-
 }
 
 void Destruction_Entree()
 {
-    close(pipeArrivee);
-
-	// Detachements
-	shmdt(p_EtatParking);
-	shmdt(p_Requetes);
-	shmdt(p_nbPlaces);
-
-    // Detruire sem place_libre
-
+    close(pipeArriveePBP);
+    close(pipeArriveeGB);
+    close(pipeArriveeABP);
     exit(0);
-
 }
 
 void handler_destruction(int noSignal) {

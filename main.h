@@ -8,6 +8,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "Structures.h"
+
 int Id_mem_EtatParking;
 int Id_mem_NbPlaces;
 int Id_mem_Requetes;
@@ -18,7 +20,7 @@ requetes * p_Requetes;
 int Id_sem_Requetes;
 int Id_sem_EtatParking;
 int Id_sem_nbPlaces;
-pid_t noClavier, noEntree, noHeure;
+pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure;
 
 int main();
 void Initialisation ();
