@@ -41,5 +41,8 @@ void Destruction();
 // Mode d'emploi : TODO
 //
 
+void Sortie_clavier(int val);
+// Mode d'emploi : TODO
+//
 
 #endif /* CLAVIER_H_ */
