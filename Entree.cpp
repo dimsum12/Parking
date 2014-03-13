@@ -64,6 +64,7 @@ void Entree(TypeBarriere barriere)
     		sprintf(temp, "test ap: %s", msgPipe);
     		Afficher(MESSAGE, temp);
     		GarerVoiture(ENTREE_GASTON_BERGER);
+
     	}
     }
 }
