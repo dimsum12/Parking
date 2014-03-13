@@ -27,6 +27,8 @@ static int * p_nbPlaces;
 static requetes * p_Requetes;
 
 static int Id_sem_Requetes;
+static int Id_sem_EtatParking;
+static int Id_sem_nbPlaces;
 static pid_t noClavier, noEntree, noHeure;
 
 
@@ -97,6 +99,10 @@ void Initialisation (){
 
 	// ------------------------ Sémaphore -----------------------//
 	Id_sem_Requetes = creer_sem(1,0);
+	Id_sem_EtatParking = creer_sem(1,0);
+	Id_sem_nbPlaces = creer_sem(1,0);
+
+	// ------------------------ Clavier -----------------------//
 
 }
 
@@ -121,4 +127,6 @@ void Destruction_main (){
 
 	// ------------------------ Semaphore -----------------------//
 	detruire_sem(Id_sem_Requetes);
+	detruire_sem(Id_sem_nbPlaces);
+	detruire_sem(Id_sem_EtatParking);
 }

@@ -26,7 +26,7 @@ void changer_sem(int sem, int val) {
 int creer_sem(int nbSemElem, int mode) {
         int sem;
         if (mode == CREER) {
-                sem = semget(IPC_PRIVATE, nbSemElem, IPC_CREAT | IPC_EXCL  | 0666);
+                sem = semget(IPC_PRIVATE, nbSemElem, IPC_CREAT | IPC_EXCL  | 0660);
                 semctl(sem, 0, SETVAL, 1);
         }
         else if (mode == UTILISER) {

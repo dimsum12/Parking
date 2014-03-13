@@ -19,8 +19,6 @@ void Clavier() {
 
     	
         // Initialisation
-        //pathPipeArrivee = "./arrivee_voiture"; 
-        //pathPipeSortie  = "./sortie_voiture"; 
         mkfifo(pathPipeArrivee , S_IWUSR);
         mkfifo(pathPipeSortie , S_IWUSR);
         
