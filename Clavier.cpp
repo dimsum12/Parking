@@ -60,10 +60,6 @@ void Commande(char code, unsigned int valeur)
 		case 'A' :
 			Arrivee(AUTRE, valeur);
 			break;
-		case 'S' :
-			Sortie_clavier(valeur);
-			break;
-
 	}
 }
 
@@ -71,6 +67,8 @@ void Arrivee(int type, int valeur)
 {
     char buff[T_BUFF_PIPE];
     sprintf(buff,"%d,%d",type,valeur);
+
+
 
     if(type == PROF && valeur == 1)
     {
@@ -87,14 +85,7 @@ void Arrivee(int type, int valeur)
     }
 }
 
-void Sortie_clavier(int valeur)
-{
-	write(sortie_voiture,&valeur,sizeof(valeur));
-}
 void Destruction()
 {
-   close(arrivee_voiturePBP);
-   close(arrivee_voitureABP);
-   close(arrivee_voitureGB);
-   close(sortie_voiture);
+
 }
