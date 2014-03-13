@@ -27,6 +27,8 @@
 
 static int pipeArriveePBP,pipeArriveeABP,pipeArriveeGB;
 static char msgPipe[T_BUFF_PIPE];
+static void handler_destruction(int noSignal);
+
 void Entree(TypeBarriere barriere)
 {   
 	//Afficher(MESSAGE, "DEBUG 1");
@@ -91,7 +93,7 @@ void Destruction_Entree()
     exit(0);
 }
 
-void handler_destruction(int noSignal) {
+static void handler_destruction(int noSignal) {
 	//SIGUSR 2 voiturier
 	Destruction_Entree();
 }

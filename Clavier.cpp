@@ -61,7 +61,7 @@ void Commande(char code, unsigned int valeur)
 			Arrivee(AUTRE, valeur);
 			break;
 		case 'S' :
-			Sortie(valeur);
+			Sortie_clavier(valeur);
 			break;
 
 	}
@@ -87,7 +87,7 @@ void Arrivee(int type, int valeur)
     }
 }
 
-void Sortie(int valeur)
+void Sortie_clavier(int valeur)
 {
 	write(sortie_voiture,&valeur,sizeof(valeur));
 }

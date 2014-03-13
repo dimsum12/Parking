@@ -27,9 +27,7 @@
 void Entree(TypeBarriere typeBarriere);
 // Mode d'emploi : TODO
 //
-void handler_destruction(int noSignal);
-// Mode d'emploi : TODO
-//
+
 void Destruction_Entree();
 // Mode d'emploi : TODO
 //

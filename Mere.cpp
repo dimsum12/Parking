@@ -32,6 +32,7 @@
 #include "Semaphore.h"
 #include "Mere.h"
 #include "SharedPipe.h"
+#include "Sortie.h"
 
 #include "Structures.h"
 
@@ -49,12 +50,18 @@ int main() {
 	else if ( (noEntreePBP = fork()) == 0)
 	{
 	    Entree(PROF_BLAISE_PASCAL);
-	} else if ( (noEntreeABP = fork()) == 0)
+	}
+	else if ( (noEntreeABP = fork()) == 0)
 	{
 	    Entree(AUTRE_BLAISE_PASCAL);
-	} else if ( (noEntreeGB = fork()) == 0)
+	}
+	else if ( (noEntreeGB = fork()) == 0)
 	{
 	    Entree(ENTREE_GASTON_BERGER);
+	}
+	else if ( (noSortie = fork()) == 0)
+	{
+	    Sortie();
 	}
         else
 	{
@@ -79,6 +86,7 @@ void handler_Destruction()
 	kill(noEntreeGB,SIGUSR2);
 	kill(noEntreePBP,SIGUSR2);
 	kill(noHeure,SIGUSR2);
+	kill(noSortie,SIGUSR2);
 	Destruction_main();
 }
 

@@ -42,7 +42,7 @@ int Id_sem_EtatParking;
 int Id_sem_nbPlaces;
 
 // PID
-pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure;
+pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure, noSortie;
 
 //---------------------------------------------------- Fonctions publiques
 
