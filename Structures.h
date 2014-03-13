@@ -31,12 +31,17 @@ struct etat_parking{
 
 };
 
-struct requetes{
+// Memoire partagee de requetes contenant un tableau de 3 requetes_contenu
+struct requetes_contenu{
 	int barriere; 				//enum TypeBarriere
 	int typeUsager_Requetes; 	//enum TypeUsager
 	time_t heureDepotRequete;
-
 };
+
+struct requetes{
+	requetes_contenu tab_req [3];
+};
+
 
 
 #endif /* STRUCTURES_H_ */

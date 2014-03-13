@@ -16,15 +16,20 @@
 // TODO
 //------------------------------------------------------------------------
 
+/////////////////////////////////////////////////////////////////  INCLUDE
+//--------------------------------------------------- Interfaces utilisées
+
+#include "Structures.h"
+
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Variables publiques
 
-pid_t noVoiturier;
 
 //---------------------------------------------------- Fonctions publiques
 
 void Sortie();
 // Mode d'emploi : TODO
 //
+bool DoitOnEchangerLesDeuxRequetesSiEllesSontDuMemeTypeUsager(requetes_contenu * premierRequeteActuelle,requetes_contenu * requeteAComparer);
 
 #endif /* SORTIE_H_ */

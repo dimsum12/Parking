@@ -38,9 +38,31 @@
 
 #define DROITS 0660
 
+// Mémoires partagées
+int Id_mem_EtatParking;
+int Id_mem_NbPlaces;
+int Id_mem_Requetes;
+etat_parking * p_EtatParking;
+int * p_nbPlaces;
+requetes * p_Requetes;
+
+// Sémaphores
+int Id_sem_Requetes;
+int Id_sem_EtatParking;
+int Id_sem_nbPlaces;
+int Id_sem_place_libre_PBP;
+int Id_sem_place_libre_ABP;
+int Id_sem_place_libre_GB;
+
+// PID
+pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure, noSortie;
+
 int main() {
-	InitialiserApplication(XTERM);
+
+
+
 	Initialisation();
+
 	noHeure = ActiverHeure();
 
 	if ( ( noClavier = fork()) == 0 )
@@ -124,18 +146,25 @@ void Initialisation ()
 	p_Requetes = (requetes*) shmat(Id_mem_EtatParking,NULL,0);
 	shmdt(p_Requetes);
 
-	// ------------------------ Sémaphore -----------------------//
+	// ------------------------ Sémaphores -----------------------//
 	Id_sem_Requetes = creer_sem(1,0);
 	Id_sem_EtatParking = creer_sem(1,0);
 	Id_sem_nbPlaces = creer_sem(1,0);
 
+	Id_sem_place_libre_PBP = creer_sem(1,0);
+	Id_sem_place_libre_ABP = creer_sem(1,0);
+	Id_sem_place_libre_GB = creer_sem(1,0);
+
+
 	// ------------------------ Clavier -----------------------//
+
+	InitialiserApplication(XTERM);
 
 }
 
 void Destruction_main ()
 {
-	// ------------------------ Semaphore -----------------------//
+	// ------------------------ Semaphores -----------------------//
 		detruire_sem(Id_sem_Requetes);
 		detruire_sem(Id_sem_nbPlaces);
 		detruire_sem(Id_sem_EtatParking);

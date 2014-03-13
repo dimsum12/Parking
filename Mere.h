@@ -28,21 +28,6 @@
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Variables publiques
 
-// Mémoires partagées
-int Id_mem_EtatParking;
-int Id_mem_NbPlaces;
-int Id_mem_Requetes;
-etat_parking * p_EtatParking;
-int * p_nbPlaces;
-requetes * p_Requetes;
-
-// Sémaphores
-int Id_sem_Requetes;
-int Id_sem_EtatParking;
-int Id_sem_nbPlaces;
-
-// PID
-pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure, noSortie;
 
 //---------------------------------------------------- Fonctions publiques
 

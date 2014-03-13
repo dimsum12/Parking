@@ -52,7 +52,7 @@ void Entree(TypeBarriere barriere)
     {
 
 
-    	if(barriere == PROF_BLAISE_PASCAL)
+    	if(barriere == PROF_BLAISE_PASCAL) //tabrec0
     	{
     		Afficher(MESSAGE, "PBP");
 
