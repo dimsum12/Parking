@@ -39,11 +39,12 @@ int main() {
 	} else if ( (noEntreeABP = fork()) == 0)
 	{
 	    Entree(AUTRE_BLAISE_PASCAL);
-	} else if ( (noEntreeGB = fork()) == 0)
+	}
+	else if ( (noEntreeGB = fork()) == 0)
 	{
 	    Entree(ENTREE_GASTON_BERGER);
 	}
-        else
+    else
 	{
 		// Creation du handler de destruction
 //		struct sigaction action_sigusr2;
@@ -76,7 +77,7 @@ void Initialisation ()
     mkfifo(pathPipeArriveePBP , S_IWUSR | S_IRUSR );
     mkfifo(pathPipeArriveeABP , S_IWUSR | S_IRUSR );
     mkfifo(pathPipeArriveeGB ,  S_IWUSR | S_IRUSR );
-    mkfifo(pathPipeSortie ,     S_IWUSR | S_IRUSR );
+    //mkfifo(pathPipeSortie ,     S_IWUSR | S_IRUSR );
 
 
 	// -------------------- Memoire Partagee ------------------- //

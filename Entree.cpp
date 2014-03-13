@@ -20,7 +20,7 @@ static int pipeArriveePBP,pipeArriveeABP,pipeArriveeGB;
 static char msgPipe[T_BUFF_PIPE];
 void Entree(TypeBarriere barriere)
 {   
-
+	//Afficher(MESSAGE, "DEBUG 1");
     //Initialisation
 
     //Creation du Handler de Destruction_Entree
@@ -28,20 +28,27 @@ void Entree(TypeBarriere barriere)
     action_siguser2.sa_handler = handler_destruction;
     action_siguser2.sa_flags = 0;
     sigaction(SIGUSR2, &action_siguser2, NULL);
+    //Afficher(MESSAGE, "DEBUG 2");
 
-    pipeArriveePBP = open(pathPipeArriveePBP,  O_RDONLY);
-    pipeArriveeABP = open(pathPipeArriveePBP,  O_RDONLY);
-    pipeArriveeGB = open(pathPipeArriveePBP,   O_RDONLY);
+    pipeArriveePBP = open(pathPipeArriveePBP,  O_RDONLY); //Afficher(MESSAGE, "DEBUG 3");
+    pipeArriveeABP = open(pathPipeArriveeABP,  O_RDONLY); Afficher(MESSAGE, "DEBUG 7");
+    pipeArriveeGB  = open(pathPipeArriveeGB,   O_RDONLY); Afficher(MESSAGE, "DEBUG 8");
+
     char temp[T_BUFF_PIPE * 2];
+    int i = 0;
 
     for(;;)
     {
 
-
+    	Effacer(MESSAGE);
+    	sprintf(temp, "test AVANT: %d", i);
+		Afficher(MESSAGE, temp);
     	if(barriere == PROF_BLAISE_PASCAL)
     	{
     		Afficher(MESSAGE, "PBP");
+
     		read(pipeArriveePBP, msgPipe, T_BUFF_PIPE);
+
     		Effacer(MESSAGE);
     		sprintf(temp, "test ap: %s", msgPipe);
     		Afficher(MESSAGE, temp);

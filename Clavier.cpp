@@ -16,11 +16,12 @@ static int arrivee_voiturePBP, arrivee_voitureABP, arrivee_voitureGB;
         
 
 void Clavier() {
-
-        arrivee_voiturePBP = open(pathPipeArriveePBP, O_NONBLOCK | O_WRONLY);
-        arrivee_voitureABP = open(pathPipeArriveeABP, O_NONBLOCK | O_WRONLY);
-        arrivee_voitureGB = open(pathPipeArriveeGB,   O_NONBLOCK | O_WRONLY);
-        sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
+		Afficher(MESSAGE, "DEBUG 4");
+        arrivee_voiturePBP = open(pathPipeArriveePBP,   O_WRONLY);
+        arrivee_voitureABP = open(pathPipeArriveeABP,   O_WRONLY);
+        arrivee_voitureGB =  open(pathPipeArriveeGB,    O_WRONLY);
+        //sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
+        Afficher(MESSAGE, "DEBUG 5");
 	for(;;)
 	{
         // Moteur
