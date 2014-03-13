@@ -12,12 +12,14 @@
 #include "SharedPipe.h"
  
 static int sortie_voiture;
-static int arrivee_voiture;
+static int arrivee_voiturePBP, arrivee_voitureABP, arrivee_voitureGB;
         
 
 void Clavier() {
 
-        arrivee_voiture = open(pathPipeArrivee, O_NONBLOCK | O_WRONLY);
+        arrivee_voiturePBP = open(pathPipeArriveePBP, O_NONBLOCK | O_WRONLY);
+        arrivee_voitureABP = open(pathPipeArriveeABP, O_NONBLOCK | O_WRONLY);
+        arrivee_voitureGB = open(pathPipeArriveeGB,   O_NONBLOCK | O_WRONLY);
         sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
 	for(;;)
 	{
@@ -30,12 +32,16 @@ void Clavier() {
 
 void Commande(char code, unsigned int valeur)
 {
-	switch (code){
+	switch (code)
+	{
 		case 'Q' :
             Destruction();
             exit(0);
 		    break;
 		case 'P' :
+			Arrivee(PROF, valeur);
+			break;
+		case 'A' :
 			Arrivee(AUTRE, valeur);
 			break;
 	}
@@ -44,12 +50,26 @@ void Commande(char code, unsigned int valeur)
 void Arrivee(int type, int valeur)
 {
     char buff[T_BUFF_PIPE];
-    sprintf(buff,"%d",type);
-    write(arrivee_voiture, buff, T_BUFF_PIPE);
+    sprintf(buff,"%d,%d",type,valeur);
+
+
+
+    if(type == PROF && valeur == 1)
+    {
+    	//Afficher(MESSAGE, buff);
+    	write(arrivee_voiturePBP, buff, T_BUFF_PIPE);
+    } else if((type == PROF && valeur == 2) || (type == AUTRE && valeur == 2))
+    {
+    	//Afficher(MESSAGE, buff);
+    	write(arrivee_voitureGB, buff, T_BUFF_PIPE);
+    } else if(type == AUTRE && valeur == 1)
+    {
+    	//Afficher(MESSAGE, buff);
+    	write(arrivee_voitureABP, buff, T_BUFF_PIPE);
+    }
 }
 
 void Destruction()
 {
-    unlink(pathPipeArrivee);
-    unlink(pathPipeSortie);
+
 }

@@ -13,14 +13,14 @@
 struct etat_parking{
 	int typeUsager_Parking; //enum TypeUsager
 	int numeroPlace;
-	time_t heureArrivee = time(NULL);
+	time_t heureArrivee;
 
 };
 
 struct requetes{
 	int barriere; //enum TypeBarriere
 	int typeUsager_Requetes; //enum TypeUsager
-	time_t heureDepotRequete = time(NULL);
+	time_t heureDepotRequete;
 
 };
 

@@ -8,7 +8,9 @@
 #ifndef ENTREE_H_
 #define ENTREE_H_
 
-void Entree();
+#include "Outils.h"
+
+void Entree(TypeBarriere typeBarriere);
 void handler_destruction(int noSignal);
 void Destruction_Entree();
 #endif /* ENTREE_H_ */
