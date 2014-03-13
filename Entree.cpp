@@ -48,7 +48,7 @@ void Destruction_Entree()
     exit(0);
 }
 
-void handler_destruction() {
+void handler_destruction(int noSignal) {
 	//SIGUSR 2 voiturier
 	Destruction_Entree();
 }

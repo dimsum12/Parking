@@ -9,5 +9,6 @@
 #define ENTREE_H_
 
 void Entree();
+void handler_destruction(int noSignal);
 
 #endif /* ENTREE_H_ */

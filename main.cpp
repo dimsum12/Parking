@@ -12,6 +12,7 @@
 #include "Entree.h"
 #include "Heure.h"
 #include "Semaphore.h"
+#include "main.h"
 
 #include "Structures.h"
 
@@ -27,6 +28,8 @@ static requetes * p_Requetes;
 
 static int Id_sem_Requetes;
 static pid_t noClavier, noEntree;
+
+
 
 int main() {
 	InitialiserApplication(XTERM);
@@ -46,7 +49,7 @@ int main() {
 	{
 		// Creation du handler de destruction
 		struct sigaction action_sigusr2;
-		action_sigusr2.sa_handler = handler_Destruction();
+		action_sigusr2.sa_handler = handler_Destruction;
 		action_sigusr2.sa_flags = 0;
 		sigaction(SIGUSR2, &action_sigusr2, NULL);
 
@@ -59,8 +62,9 @@ int main() {
 	}
     return 0;
 }
-void handler_Destruction(){
+void handler_Destruction(int noSignal){
 	kill(noEntree,SIGUSR2);
+	Afficher(MESSAGE, "SIGUSR2");
 	Destruction_main();
 }
 
