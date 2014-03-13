@@ -1,10 +1,19 @@
-/*
- * Sortie.cpp
- *
- *  Created on: 13 mars 2014
- *      Author: qdupont
- */
+/*************************************************************************
+                           Sortie  -  description
+                             -------------------
+    début                : Sortie
+    copyright            : (C) Sortie par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
+
+//---------- Réalisation du module <Sortie> (fichier Sortie.cpp) -----
+
+/////////////////////////////////////////////////////////////////  INCLUDE
+//-------------------------------------------------------- Include système
+
 #include <fcntl.h>
+
+//-------------------------------------------------------- Include personnel
 
 #include "Sortie.h"
 #include "SharedPipe.h"

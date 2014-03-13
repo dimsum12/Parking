@@ -1,10 +1,15 @@
-/*
- * Entree.cpp
- *
- *  Created on: 12 mars 2014
- *      Author: vcaen
- */
+/*************************************************************************
+                           Entree  -  description
+                             -------------------
+    début                : Entree
+    copyright            : (C) Entree par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
 
+//---------- Réalisation du module <Entree> (fichier Entree.cpp) -----
+
+/////////////////////////////////////////////////////////////////  INCLUDE
+//-------------------------------------------------------- Include système
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -14,10 +19,12 @@
 #include <sys/types.h>
 #include <sys/shm.h>
 
+//------------------------------------------------------ Include personnel
+
 #include "Entree.h"
 #include "SharedPipe.h"
 #include "Outils.h"
-#include "main.h"
+#include "Mere.h"
 #include "Semaphore.h"
 
 static int pipeArriveePBP,pipeArriveeABP,pipeArriveeGB;
@@ -40,9 +47,6 @@ void Entree(TypeBarriere barriere)
 
     for(;;)
     {
-
-
-
     	if(barriere == PROF_BLAISE_PASCAL)
     	{
     		Afficher(MESSAGE, "PBP");

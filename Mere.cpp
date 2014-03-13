@@ -1,3 +1,16 @@
+/*************************************************************************
+                           Mere  -  description
+                             -------------------
+    début                : Mere
+    copyright            : (C) Mere par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
+
+//---------- Réalisation du module <Mere> (fichier Mere.cpp) -----
+
+/////////////////////////////////////////////////////////////////  INCLUDE
+//-------------------------------------------------------- Include système
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/shm.h>
@@ -10,19 +23,19 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+//------------------------------------------------------ Include personnel
 
 #include "Outils.h"
 #include "Clavier.h"
 #include "Entree.h"
 #include "Heure.h"
 #include "Semaphore.h"
-#include "main.h"
+#include "Mere.h"
 #include "SharedPipe.h"
 
 #include "Structures.h"
 
 #define DROITS 0660
-
 
 int main() {
 	InitialiserApplication(XTERM);

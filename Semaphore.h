@@ -1,10 +1,12 @@
-/*
- * Semaphore.h
- *
- *  Created on: 13 mars 2014
- *      Author: qdupont
- */
+/*************************************************************************
+                           Semaphore.h  -  description
+                             -------------------
+    début                : Jeudi 13 mars 2014
+    copyright            : (C) 2014 par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
 
+//---------- Interface du module <Semaphore> (fichier Semaphore.h) -----------------
 #ifndef SEMAPHORE_H_
 #define SEMAPHORE_H_
 

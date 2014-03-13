@@ -1,3 +1,16 @@
+/*************************************************************************
+                           Clavier  -  description
+                             -------------------
+    début                : Clavier
+    copyright            : (C) Clavier par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
+
+//---------- Réalisation du module <Clavier> (fichier Clavier.cpp) -----
+
+/////////////////////////////////////////////////////////////////  INCLUDE
+//-------------------------------------------------------- Include système
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <cstdlib>
@@ -5,6 +18,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+
+//------------------------------------------------------ Include personnel
 
 #include "Clavier.h"
 #include "Menu.h"

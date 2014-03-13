@@ -1,14 +1,23 @@
-/*
- * Semaphore.cpp
- *
- *  Created on: 13 mars 2014
- *      Author: qdupont
- */
+/*************************************************************************
+                           Semaphore  -  description
+                             -------------------
+    début                : Semaphore
+    copyright            : (C) Semaphore par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
 
-#include "Semaphore.h"
+//---------- Réalisation du module <Semaphore> (fichier Semaphore.cpp) -----
+
+/////////////////////////////////////////////////////////////////  INCLUDE
+//-------------------------------------------------------- Include système
+
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <time.h>
+
+//-------------------------------------------------------- Include personnel
+
+#include "Semaphore.h"
 
 #define CREER 0
 #define UTILISER 1

@@ -1,9 +1,12 @@
-/*
- * SharedPipe.h
- *
- *  Created on: 12 mars 2014
- *      Author: vcaen
- */
+/*************************************************************************
+                           SharedPipe.h  -  description
+                             -------------------
+    début                : Jeudi 13 mars 2014
+    copyright            : (C) 2014 par Vadim Caen et Quentin Dupont
+    e-mail               : quentin.dupont@insa-lyon.fr
+*************************************************************************/
+
+//---------- Interface du module <SharedPipe> (fichier SharedPipe.h) -----------------
 
 #ifndef SHAREDPIPE_H_
 #define SHAREDPIPE_H_

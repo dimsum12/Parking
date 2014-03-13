@@ -1,36 +1,58 @@
 /*************************************************************************
-                           Entree.h  -  description
+                           Mere.h  -  description
                              -------------------
     début                : Jeudi 13 mars 2014
     copyright            : (C) 2014 par Vadim Caen et Quentin Dupont
     e-mail               : quentin.dupont@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface du module <Entree> (fichier Entree.h) -----------------
-#ifndef ENTREE_H_
-#define ENTREE_H_
+//---------- Interface du module <Mere> (fichier Mere.h) -----------------
+
+#ifndef MERE_H_
+#define MERE_H_
 
 //------------------------------------------------------------------------
-// Rôle du module <Entree>
-// Module qui gère les entrées des différents véhicules sur les différentes entrées
-//
+// Rôle du module <Mere>
+// TODO
 //------------------------------------------------------------------------
+
+//------------------------------------------------------------- Constantes
+
+//------------------------------------------------------------------ Types
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
 
-#include "Outils.h"
+#include "Structures.h"
 
 //////////////////////////////////////////////////////////////////  PUBLIC
+//---------------------------------------------------- Variables publiques
+
+int Id_mem_EtatParking;
+int Id_mem_NbPlaces;
+int Id_mem_Requetes;
+etat_parking * p_EtatParking;
+int * p_nbPlaces;
+requetes * p_Requetes;
+
+int Id_sem_Requetes;
+int Id_sem_EtatParking;
+int Id_sem_nbPlaces;
+pid_t noClavier, noEntreeABP, noEntreePBP, noEntreeGB, noHeure;
+
 //---------------------------------------------------- Fonctions publiques
 
-void Entree(TypeBarriere typeBarriere);
+int main();
+// Mode d'emploi : trivial
+//
+void Initialisation ();
 // Mode d'emploi : TODO
 //
-void handler_destruction(int noSignal);
+void Destruction_main();
 // Mode d'emploi : TODO
 //
-void Destruction_Entree();
+void handler_Destruction();
 // Mode d'emploi : TODO
 //
-#endif /* ENTREE_H_ */
+
+#endif /* MERE_H_ */
