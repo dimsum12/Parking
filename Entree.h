@@ -10,5 +10,5 @@
 
 void Entree();
 void handler_destruction(int noSignal);
-
+void Destruction_Entree();
 #endif /* ENTREE_H_ */

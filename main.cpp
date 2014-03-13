@@ -48,13 +48,14 @@ int main() {
         else
 	{
 		// Creation du handler de destruction
-		struct sigaction action_sigusr2;
-		action_sigusr2.sa_handler = handler_Destruction;
-		action_sigusr2.sa_flags = 0;
-		sigaction(SIGUSR2, &action_sigusr2, NULL);
+//		struct sigaction action_sigusr2;
+//		action_sigusr2.sa_handler = handler_Destruction();
+//		action_sigusr2.sa_flags = 0;
+//		sigaction(SIGUSR2, &action_sigusr2, NULL);
 
 		Afficher(MESSAGE, "Test");
 		waitpid(noClavier, NULL, 0);
+		handler_Destruction();
 		TerminerApplication();
 		exit(0);
 
@@ -62,10 +63,9 @@ int main() {
 	}
     return 0;
 }
-void handler_Destruction(int noSignal){
+void handler_Destruction(){
 	kill(noEntree,SIGUSR2);
-	Afficher(MESSAGE, "SIGUSR2");
-	Destruction_main();
+	//Destruction_main();
 }
 
 void Initialisation (){
@@ -79,15 +79,20 @@ void Initialisation (){
 	// Attachement, on recupere l'adresse d'attachement (par un pointeur)
 	p_EtatParking = (etat_parking*) shmat(Id_mem_EtatParking,NULL,0);
 
+	//Detachement
+	shmdt(p_EtatParking);
+
 	// ------------------------ nbPlaces ----------------------- //
 
 	Id_mem_NbPlaces = shmget(IPC_PRIVATE,sizeof(int),IPC_CREAT | DROITS);
 	p_nbPlaces = (int*) shmat(Id_mem_NbPlaces,NULL,0);
+	shmdt(p_nbPlaces);
 
 	// ------------------------ Requetes ----------------------- //
 
 	Id_mem_Requetes = shmget(IPC_PRIVATE,sizeof(requetes),IPC_CREAT | DROITS);
 	p_Requetes = (requetes*) shmat(Id_mem_EtatParking,NULL,0);
+	shmdt(p_Requetes);
 
 	// ------------------------ Sémaphore -----------------------//
 	Id_sem_Requetes = creer_sem(1,0);
@@ -99,18 +104,18 @@ void Destruction_main (){
 	// -------------------- Memoire Partagee ------------------- //
 	// ---------------------- Etat Parking --------------------- //
 
-	//shmdt(p_EtatParking);// Detachement
+	//shmdt(p_EtatParking);// Detachement à faire dans la tâche
 	shmctl(Id_mem_EtatParking,IPC_RMID,0);// Suppression
 
 
 	// ------------------------ nbPlaces ----------------------- //
 
-	//shmdt(p_nbPlaces);
+	//shmdt(p_nbPlaces);// Detachement à faire dans la tâche
 	shmctl(Id_mem_NbPlaces,IPC_RMID,0);
 
 	// ------------------------ Requetes ----------------------- //
 
-	//shmdt(p_Requetes);
+	//shmdt(p_Requetes);// Detachement à faire dans la tâche
 	shmctl(Id_mem_Requetes,IPC_RMID,0);
 
 	// ------------------- Fin Memoire Partagee -----------------//
