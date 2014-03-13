@@ -28,26 +28,37 @@
 #include "Semaphore.h"
 #include "Structures.h"
 
+///////////////////////////////////////////////////////////////////  PRIVE
+//------------------------------------------------------------- Constantes
+
+//------------------------------------------------------------------ Types
+
+//---------------------------------------------------- Variables statiques
+
 static int s_voiture;
 static void handler_destruction(int noSignal);
 static void handler_finGarage(int noSignal2);
 static vector<pid_t> vVoituresASortir; //Contient tous les PID des voituriers en cours de sortie
 requetes_contenu * premiereRequete;
+static struct sigaction action_sigchild;
+static struct sigaction s_action_siguser2;
 
-extern int Id_sem_Requetes;
-extern int Id_mem_EtatParking;
+/////////////////////////////////////////////////////////////////// PUBLIC
+//---------------------------------------------------- Variables publiques
+
 extern int Id_sem_Requetes;
 extern int Id_sem_nbPlaces;
 extern int Id_sem_place_libre_PBP;
 extern int Id_sem_place_libre_ABP;
 extern int Id_sem_place_libre_GB;
+extern int Id_mem_EtatParking;
+extern int Id_mem_NbPlaces;
+extern int Id_sem_EtatParking;
+extern int Id_mem_Requetes;
 
-static struct sigaction action_sigchild;
-static struct sigaction s_action_siguser2;
-
-pid_t noVoiturier;
-
-void Sortie(){
+//---------------------------------------------------- Fonctions publiques
+void Sortie()
+{
 
 	//Creation du Handler de Signal SIGUSR2 de Destruction_Sortie
     s_action_siguser2.sa_handler = handler_destruction;
@@ -69,8 +80,20 @@ void Sortie(){
 
 }
 
+// On donne en paramètre deux pointeurs de struc requete_contenu et on compare leur date pour dire si la requete actuelle est plus vieille
+bool DoitOnEchangerLesDeuxRequetesSiEllesSontDuMemeTypeUsager(requetes_contenu * premierRequeteActuelle,requetes_contenu * requeteAComparer)
+{
+	if (premierRequeteActuelle->heureDepotRequete < requeteAComparer->heureDepotRequete)
+	{
+		return false; // On ne doit pas échanger les requetes car celle actuelle est plus vieille
+	}
+	else return true;
+}
 
-static void handler_destruction(int noSignal) {
+///////////////////////////////////////////////////////////////////  PRIVE
+//------------------------------------------------------- Fonctions privés
+static void handler_destruction(int noSignal)
+{
 
 	// Destruction de toutes les tâches SortirVoiture en cours d'éxecution
 	vector<pid_t>::iterator it ;
@@ -86,13 +109,16 @@ static void handler_destruction(int noSignal) {
 	exit(0);
 }
 
-static void handler_finGarage(int noSignal2){
+static void handler_finGarage(int noSignal2)
+{
 	// Reservation de la memoire partagee avec le semaphore
 	P(Id_sem_Requetes);
 
 	/* Lecture des requêtes*/
-	// Attachement
-	requetes *p_memRequetes = (requetes*) shmat(Id_mem_EtatParking,NULL,0);
+	// Attachements
+	requetes *p_memRequetes = (requetes*) shmat(Id_mem_Requetes,NULL,0);
+	etat_parking *p_memEtatParking = (etat_parking*) shmat(Id_mem_EtatParking,NULL,0);
+	int *p_memNbPlaces = (int*) shmat(Id_mem_NbPlaces,NULL,0);
 
 	// Comparaisons
 	bool aumoinsUneRequete = false;
@@ -152,14 +178,14 @@ static void handler_finGarage(int noSignal2){
 	else
 	{
 		P(Id_sem_nbPlaces);
+		(*p_memNbPlaces)++;
+		V(Id_sem_nbPlaces);
 	}
-}
+	// Voiture sortie = Mise à jour état parking
+	P(Id_sem_EtatParking);
+	p_memEtatParking->heureArrivee=0;
+	p_memEtatParking->numeroVoiture=0;
+	p_memEtatParking->typeUsager_Parking=0;
+	V(Id_sem_EtatParking);
 
-// On donne en paramètre deux pointeurs de struc requete_contenu et on compare leur date pour dire si la requete actuelle est plus vieille
-bool DoitOnEchangerLesDeuxRequetesSiEllesSontDuMemeTypeUsager(requetes_contenu * premierRequeteActuelle,requetes_contenu * requeteAComparer){
-	if (premierRequeteActuelle->heureDepotRequete < requeteAComparer->heureDepotRequete)
-	{
-		return false; // On ne doit pas échanger les requetes car celle actuelle est plus vieille
-	}
-	else return true;
 }

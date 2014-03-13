@@ -22,14 +22,13 @@
 #include "Structures.h"
 
 //////////////////////////////////////////////////////////////////  PUBLIC
-//---------------------------------------------------- Variables publiques
-
-
 //---------------------------------------------------- Fonctions publiques
 
 void Sortie();
 // Mode d'emploi : TODO
 //
 bool DoitOnEchangerLesDeuxRequetesSiEllesSontDuMemeTypeUsager(requetes_contenu * premierRequeteActuelle,requetes_contenu * requeteAComparer);
+// Mode d'emploi : TODO
+//
 
 #endif /* SORTIE_H_ */

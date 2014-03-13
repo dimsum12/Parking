@@ -4,7 +4,7 @@
     début                : Clavier
     copyright            : (C) Clavier par Vadim Caen et Quentin Dupont
     e-mail               : quentin.dupont@insa-lyon.fr
-*************************************************************************/
+ *************************************************************************/
 
 //---------- Réalisation du module <Clavier> (fichier Clavier.cpp) -----
 
@@ -25,24 +25,31 @@
 #include "Menu.h"
 #include "Outils.h"
 #include "SharedPipe.h"
- 
+
+///////////////////////////////////////////////////////////////////  PRIVE
+//------------------------------------------------------------- Constantes
+
+//------------------------------------------------------------------ Types
+
+//---------------------------------------------------- Variables statiques
 static int sortie_voiture;
 static int arrivee_voiturePBP, arrivee_voitureABP, arrivee_voitureGB;
-        
 
-void Clavier() {
-		Afficher(MESSAGE, "DEBUG 4");
-        arrivee_voiturePBP 	= open(pathPipeArriveePBP,  O_WRONLY);
-        arrivee_voitureABP 	= open(pathPipeArriveeABP,  O_WRONLY);
-        arrivee_voitureGB 	= open(pathPipeArriveeGB,   O_WRONLY);
-        sortie_voiture		= open(pathPipeSortie, 		O_WRONLY);
-        Afficher(MESSAGE, "DEBUG 5");
+
+void Clavier()
+{
+	Afficher(MESSAGE, "DEBUG 4");
+	arrivee_voiturePBP 	= open(pathPipeArriveePBP,  O_WRONLY);
+	arrivee_voitureABP 	= open(pathPipeArriveeABP,  O_WRONLY);
+	arrivee_voitureGB 	= open(pathPipeArriveeGB,   O_WRONLY);
+	sortie_voiture		= open(pathPipeSortie, 		O_WRONLY);
+	Afficher(MESSAGE, "DEBUG 5");
 	for(;;)
 	{
-        // Moteur
+		// Moteur
 		Menu();
 	}
-        
+
 
 }
 
@@ -50,41 +57,41 @@ void Commande(char code, unsigned int valeur)
 {
 	switch (code)
 	{
-		case 'Q' :
-            Destruction();
-            exit(0);
-		    break;
-		case 'P' :
-			Arrivee(PROF, valeur);
-			break;
-		case 'A' :
-			Arrivee(AUTRE, valeur);
-			break;
-		case 'S' :
-			Sortie_clavier(valeur);
-			break;
+	case 'Q' :
+		Destruction();
+		exit(0);
+		break;
+	case 'P' :
+		Arrivee(PROF, valeur);
+		break;
+	case 'A' :
+		Arrivee(AUTRE, valeur);
+		break;
+	case 'S' :
+		Sortie_clavier(valeur);
+		break;
 
 	}
 }
 
 void Arrivee(int type, int valeur)
 {
-    char buff[T_BUFF_PIPE];
-    sprintf(buff,"%d,%d",type,valeur);
+	char buff[T_BUFF_PIPE];
+	sprintf(buff,"%d,%d",type,valeur);
 
-    if(type == PROF && valeur == 1)
-    {
-    	//Afficher(MESSAGE, buff);
-    	write(arrivee_voiturePBP, buff, T_BUFF_PIPE);
-    } else if((type == PROF && valeur == 2) || (type == AUTRE && valeur == 2))
-    {
-    	//Afficher(MESSAGE, buff);
-    	write(arrivee_voitureGB, buff, T_BUFF_PIPE);
-    } else if(type == AUTRE && valeur == 1)
-    {
-    	//Afficher(MESSAGE, buff);
-    	write(arrivee_voitureABP, buff, T_BUFF_PIPE);
-    }
+	if(type == PROF && valeur == 1)
+	{
+		//Afficher(MESSAGE, buff);
+		write(arrivee_voiturePBP, buff, T_BUFF_PIPE);
+	} else if((type == PROF && valeur == 2) || (type == AUTRE && valeur == 2))
+	{
+		//Afficher(MESSAGE, buff);
+		write(arrivee_voitureGB, buff, T_BUFF_PIPE);
+	} else if(type == AUTRE && valeur == 1)
+	{
+		//Afficher(MESSAGE, buff);
+		write(arrivee_voitureABP, buff, T_BUFF_PIPE);
+	}
 }
 
 void Sortie_clavier(int valeur)
@@ -93,8 +100,8 @@ void Sortie_clavier(int valeur)
 }
 void Destruction()
 {
-   close(arrivee_voiturePBP);
-   close(arrivee_voitureABP);
-   close(arrivee_voitureGB);
-   close(sortie_voiture);
+	close(arrivee_voiturePBP);
+	close(arrivee_voitureABP);
+	close(arrivee_voitureGB);
+	close(sortie_voiture);
 }
