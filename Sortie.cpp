@@ -7,6 +7,7 @@
 #include <fcntl.h>
 
 #include "Sortie.h"
+#include "SharedPipe.h"
 
 static int s_voiture;
 

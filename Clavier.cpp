@@ -17,11 +17,6 @@ static int arrivee_voiture;
 
 void Clavier() {
 
-    	
-        // Initialisation
-        mkfifo(pathPipeArrivee , S_IWUSR);
-        mkfifo(pathPipeSortie , S_IWUSR);
-        
         arrivee_voiture = open(pathPipeArrivee, O_NONBLOCK | O_WRONLY);
         sortie_voiture = open(pathPipeSortie, O_NONBLOCK | O_WRONLY);
 	for(;;)

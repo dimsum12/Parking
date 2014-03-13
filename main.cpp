@@ -6,6 +6,10 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <sys/stat.h>
+
 
 #include "Outils.h"
 #include "Clavier.h"
@@ -13,24 +17,11 @@
 #include "Heure.h"
 #include "Semaphore.h"
 #include "main.h"
+#include "SharedPipe.h"
 
 #include "Structures.h"
 
 #define DROITS 0660
-
-
-static int Id_mem_EtatParking;
-static int Id_mem_NbPlaces;
-static int Id_mem_Requetes;
-static etat_parking * p_EtatParking;
-static int * p_nbPlaces;
-static requetes * p_Requetes;
-
-static int Id_sem_Requetes;
-static int Id_sem_EtatParking;
-static int Id_sem_nbPlaces;
-static pid_t noClavier, noEntree, noHeure;
-
 
 
 int main() {
@@ -72,6 +63,11 @@ void handler_Destruction(){
 }
 
 void Initialisation (){
+
+	// -------------------------- Pipes ------------------------ //
+    mkfifo(pathPipeArrivee , S_IWUSR);
+    mkfifo(pathPipeSortie , S_IWUSR);
+
 
 	// -------------------- Memoire Partagee ------------------- //
 	// ---------------------- Etat Parking --------------------- //
