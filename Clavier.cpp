@@ -51,7 +51,7 @@ void Commande(char code, unsigned int valeur)
 void Arrivee(int type, int valeur)
 {
     char buff[T_BUFF_PIPE];
-    sprintf(buff,"%d,%d",type,valeur);
+    sprintf(buff,"%d",type);
     write(arrivee_voiture, buff, T_BUFF_PIPE);
 }
 
